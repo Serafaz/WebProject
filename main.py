@@ -59,7 +59,8 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect('/load_photo')
+            if f'/static/img/{current_user}_image.png' in images_of_players:
+                return redirect('/load_photo')
         return render_template('login.html', message='Неправильный логин и пароль', form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
@@ -70,7 +71,7 @@ def load_photo():
         return render_template('load_image_if_want.html', title='Загрузка фото')
     if request.method == 'POST':
         f = request.files['file']
-        filename = current_user + 'f'
+        filename = current_user + '_image.png'
         image = open(filename, 'wb')
         image.write(f.read())
         image.close()
@@ -83,4 +84,10 @@ def main():
 
 
 if __name__ == "__main__":
+    images_of_players = list()
+    for currentdir, dirs, files in os.walk():
+        print(currentdir, dirs, files)
+        for el in files:
+            images_of_players.append(el)
+    print(images_of_players)
     main()

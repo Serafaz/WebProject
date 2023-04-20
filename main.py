@@ -79,6 +79,11 @@ def load_photo():
         return redirect('/')
 
 
+@app.route('/play/level1', methods=['GET', 'POST'])
+def play_level1():
+    return render_template('level1_template.html', title='Играем...')
+
+
 def main():
     app.run()
 

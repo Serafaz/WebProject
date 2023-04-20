@@ -17,7 +17,10 @@
               <img src="/static/img/title_image.png" width="30"
                    height="30"></a>
           {% if current_user.is_authenticated %}
-              <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+              <div>{{ current_user.name }}
+                  <img src="/static/img/{{ current_user.name }}_image.png" width="30" height="30"
+                  alt="">
+              </div>
           {% else %}
                 <p>
                     <a class="btn btn-primary" href="/register">Регистрация</a>

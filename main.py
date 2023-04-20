@@ -59,29 +59,42 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            if f'/static/img/{current_user}_image.png' in images_of_players:
+            if f'/static/img/{current_user}_image.png' not in images_of_players:
                 return redirect('/load_photo')
         return render_template('login.html', message='Неправильный логин и пароль', form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
 
+@app.route('/about_game', methods=['GET', 'POST'])
+def about_game():
+    if request.method == 'GET':
+        return render_template('about_game.html')
+    if request.method == 'POST':
+        return redirect('/')
+
+
 @app.route('/load_photo', methods=['GET', 'POST'])
 def load_photo():
     if request.method == 'GET':
-        return render_template('load_image_if_want.html', title='Загрузка фото')
+        return render_template('load_image_if_want.html', message='Выберите png-файл',
+                               title='Загрузка фото')
     if request.method == 'POST':
-        f = request.files['file']
-        filename = current_user + '_image.png'
-        image = open(filename, 'wb')
-        image.write(f.read())
-        image.close()
-        os.replace(filename, f'static/img/{filename}')
+        if request.files['file'].filename != '':
+            f = request.files['file']
+            if request.files['file'].filename[-4:] != '.png':
+                return render_template('load_image_if_want.html', message='Файл не ".png"',
+                                       title='Загрузка фото')
+            filename = current_user + '_image.png'
+            image = open(filename, 'wb')
+            image.write(f.read())
+            image.close()
+            os.replace(filename, f'./static/img/{filename}')
         return redirect('/')
 
 
 @app.route('/play/level1', methods=['GET', 'POST'])
 def play_level1():
-    return render_template('level1_template.html', title='Первый уровень')
+    return render_template('level1_template.html', title='Играем...')
 
 
 def main():
@@ -91,8 +104,6 @@ def main():
 if __name__ == "__main__":
     images_of_players = list()
     for currentdir, dirs, files in os.walk('./static/img'):
-        print(currentdir, dirs, files)
         for el in files:
             images_of_players.append(el)
-    print(images_of_players)
     main()

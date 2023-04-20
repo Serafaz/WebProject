@@ -18,8 +18,7 @@
                    height="30"></a>
           {% if current_user.is_authenticated %}
               <div>{{ current_user.name }}
-                  <img src="/static/img/{{ current_user.name }}_image.png" width="30" height="30"
-                  alt="">
+                  <img src="{{ filename }}" width="30" height="30" alt="">
               </div>
           {% else %}
                 <p>

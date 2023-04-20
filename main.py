@@ -81,7 +81,7 @@ def load_photo():
 
 @app.route('/play/level1', methods=['GET', 'POST'])
 def play_level1():
-    return render_template('level1_template.html', title='Играем...')
+    return render_template('level1_template.html', title='Первый уровень')
 
 
 def main():
@@ -90,7 +90,7 @@ def main():
 
 if __name__ == "__main__":
     images_of_players = list()
-    for currentdir, dirs, files in os.walk():
+    for currentdir, dirs, files in os.walk('./static/img'):
         print(currentdir, dirs, files)
         for el in files:
             images_of_players.append(el)

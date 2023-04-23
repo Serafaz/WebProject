@@ -1,0 +1,1 @@
+from flask_wtf import FlaskFormfrom wtforms import StringField, TextAreaField, SubmitFieldfrom wtforms.validators import DataRequiredclass CommentForm(FlaskForm):    title = StringField('Тема', validators=[DataRequired()])    content = TextAreaField('Содержание')    submit = SubmitField('Добавить комментарий')

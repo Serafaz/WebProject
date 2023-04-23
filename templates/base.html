@@ -9,17 +9,16 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
           crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color: #00e676">
     <header>
-      <nav class="navbar" style="background-color: #6b6b6b;">
-          <a class="navbar-brand" style="color: #ffffff;"
-             href="#">Нонограммы
+      <nav class="navbar" style="background-color: #00ccff">
+          <a class="navbar-brand" style="color: #ffffff"
+             href="/">Нонограммы
               <img src="/static/img/title_image.png" width="30"
                    height="30"></a>
           {% if current_user.is_authenticated %}
-              <div>{{ current_user.name }}
-                  <img src="{{ filename }}" width="30" height="30" alt="">
-              </div>
+                  <a class="navbar-brand" href="/logout">{{ current_user.name }}
+                  <img src="{{ filename }}" width="30" height="30" alt=""></a>
           {% else %}
                 <p>
                     <a class="btn btn-primary" href="/register">Регистрация</a>
@@ -28,7 +27,6 @@
           {% endif %}
       </nav>
     </header>
-    <!-- Begin page content -->
     <main role="main" class="container">
       {% block content %}{% endblock %}
     </main>

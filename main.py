@@ -245,7 +245,32 @@ def load_photo():
 
 @app.route('/play/level1', methods=['GET', 'POST'])
 def play_level1():
-    return render_template('level1_template.html', title='Играем...')
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return render_template('level1_template.html', title='Играем...',
+                                   filename='.' + current_user.filename_of_image)
+        else:
+            return redirect('/')
+    if request.method == 'POST':
+        if ((request.form['1'] == request.form['10'] == request.form['17'] == request.form['26'] ==
+            request.form['41'] == '7') and (request.form['4'] == request.form['11'] ==
+            request.form['31'] == request.form['40'] == request.form['46'] == '1') and
+            (request.form['5'] == request.form['8'] == request.form['22'] == request.form['29'] ==
+            request.form['45'] == '2') and (request.form['7'] == request.form['15'] ==
+            request.form['19'] == request.form['32'] == request.form['39'] == '3') and
+            (request.form['3'] == request.form['14'] == request.form['20'] == request.form['21'] ==
+            request.form['28'] == request.form['38'] == '4') and (request.form['2'] ==
+            request.form['6'] == request.form['35'] == request.form['37'] == request.form['44'] ==
+            '5') and (request.form['13'] == request.form['18'] == request.form['25'] ==
+            request.form['27'] == request.form['36'] == '6') and (request.form['24'] ==
+            request.form['30'] == request.form['34'] == '8') and (request.form['9'] ==
+            request.form['12'] == request.form['16'] == request.form['23'] ==
+                request.form['33'] == request.form['42'] == request.form['43'] == '9')):
+            return render_template('already_complete.html', title='Победа!',
+                                   filename='.' + current_user.filename_of_image)
+        else:
+            return render_template('not_complete.html', title='Неверно',
+                                   filename='.' + current_user.filename_of_image)
 
 
 def main():

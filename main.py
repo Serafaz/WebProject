@@ -231,7 +231,7 @@ def load_photo():
                     return render_template('load_image_if_want.html', message='Файл не ".png"',
                                            title='Загрузка фото',
                                            filename="./static/img/image_of_user.png")
-            filename = current_user.name + '_image.png'
+            filename = str(current_user.id) + '_image.png'
             image = open(filename, 'wb')
             image.write(f.read())
             image.close()

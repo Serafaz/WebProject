@@ -21,6 +21,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
                                      default=datetime.datetime.now)
     filename_of_image = sqlalchemy.Column(sqlalchemy.String,
                                           default="./static/img/image_of_user.png")
+    line_of_game = sqlalchemy.Column(sqlalchemy.String, default="")
     comments = orm.relationship("Comment", back_populates='user')
 
     def set_password(self, password):

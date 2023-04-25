@@ -247,8 +247,25 @@ def load_photo():
 def play_level1():
     if request.method == 'GET':
         if current_user.is_authenticated:
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == current_user.id).first()
+            arr_for_game = user.line_of_game
+            if arr_for_game == '':
+                arr_for_game = [''] * 46
+            else:
+                arr_for_game = arr_for_game.split('-')
+                copy_arr_for_game = list()
+                for el in arr_for_game:
+                    if el == '/':
+                        copy_arr_for_game.append('')
+                    else:
+                        copy_arr_for_game += el
+                arr_for_game.clear()
+                arr_for_game = copy_arr_for_game.copy()
+                print(arr_for_game)
             return render_template('level1_template.html', title='Играем...',
-                                   filename='.' + current_user.filename_of_image)
+                                   filename='.' + current_user.filename_of_image,
+                                   arr=arr_for_game)
         else:
             return redirect('/')
     if request.method == 'POST':
@@ -266,9 +283,23 @@ def play_level1():
             request.form['30'] == request.form['34'] == '8') and (request.form['9'] ==
             request.form['12'] == request.form['16'] == request.form['23'] ==
                 request.form['33'] == request.form['42'] == request.form['43'] == '9')):
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == current_user.id).first()
+            user.line_of_game = ''
+            db_sess.commit()
             return render_template('already_complete.html', title='Победа!',
                                    filename='.' + current_user.filename_of_image)
         else:
+            arr_of_values = list()
+            for i in range(1, 47):
+                if request.form[str(i)]:
+                    arr_of_values += request.form[str(i)]
+                else:
+                    arr_of_values.append('/')
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == current_user.id).first()
+            user.line_of_game = '-'.join(arr_of_values)
+            db_sess.commit()
             return render_template('not_complete.html', title='Неверно',
                                    filename='.' + current_user.filename_of_image)
 

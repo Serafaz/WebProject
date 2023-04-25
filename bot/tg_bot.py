@@ -1,12 +1,11 @@
 # Импортируем необходимые классы.
 import logging
-import datetime
 from telegram.ext import Application, MessageHandler, filters, CommandHandler, ConversationHandler
 from telegram import ReplyKeyboardMarkup
 from news_for_bot.news import news
 import random
 
-TOKEN = '6138789109:AAGEK3zlOu1vXFGiTdFyob39JISZihig5SY'
+TOKEN = '6209033435:AAENXK3I1IhxHzZkKY9yEP4-JMtMg0C10dU'
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG
@@ -20,7 +19,7 @@ async def echo(update, context):
 
 
 async def start_command(update, context):
-    reply_keyboard = [['/start', '/help', '/news'], ['/rules', '/history', '/stop']]
+    reply_keyboard = [['/help', '/news'], ['/rules', '/history']]
     markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
     user = update.effective_user
     await update.message.reply_html(
@@ -63,12 +62,15 @@ async def rules_command(update, context):
 
 async def history_of_nonogramms_command(update, context):
     await update.message.reply_text(f"История Нонограмм: \n"
-                                    f"...")
-
-
-async def stop_command(update, context):
-    await update.message.reply_text('Прощайте. Если будут вопросы, то обращайтесь!')
-    return
+                                    f"Нонограммы родились благодаря Нон Исиде \n"
+                                    f"В 1987 году она приняла участие в конкурсе "
+                                    f"рисунков окнами Window Art. Участникам необходимо было "
+                                    f"создать рисунок на небоскребе с помощью окон, "
+                                    f"включать или выключать в комнатах свет. Ночью были подведены "
+                                    f"итоги, и работа Исиды заняла первое место. Сказка о "
+                                    f"бамбуковом резчике — это японская легенда VIII века, "
+                                    f"ставшая первой нонограммой, "
+                                    f"которую увидела многочисленная публика.")
 
 
 def main():
@@ -80,7 +82,6 @@ def main():
     application.add_handler(CommandHandler("news", news_command))
     application.add_handler(CommandHandler("rules", rules_command))
     application.add_handler(CommandHandler("history", history_of_nonogramms_command))
-    application.add_handler(CommandHandler("stop", stop_command))
     application.run_polling()
 
 

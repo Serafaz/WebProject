@@ -3,5 +3,5 @@ Flask_Login==0.5.0
 SQLAlchemy==1.4.47
 SQLAlchemy_serializer==1.4.1
 Werkzeug==1.0.1
-Flask-WTF==1.1.1
+Flask-WTF==0.15.0
 WTForms==3.0.1

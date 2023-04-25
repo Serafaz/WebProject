@@ -1,5 +1,5 @@
 Flask==1.1.4
-Flask_Login==0.6.2
+Flask_Login==0.5.0
 SQLAlchemy==2.0.4
 SQLAlchemy_serializer==1.4.1
 Werkzeug==2.2.2

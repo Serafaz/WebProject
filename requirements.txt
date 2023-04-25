@@ -5,4 +5,4 @@ SQLAlchemy_serializer==1.4.1
 Werkzeug==1.0.1
 Flask-WTF==0.15.0
 WTForms==2.3.3
-MarkupSafe==2.1.2
+MarkupSafe==1.1.1

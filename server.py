@@ -253,7 +253,7 @@ def play_level1():
             if arr_for_game == '':
                 arr_for_game = [''] * 46
             else:
-                arr_for_game = arr_for_game.split('--')
+                arr_for_game = arr_for_game.split('-')
                 copy_arr_for_game = list()
                 for el in arr_for_game:
                     if el == '/':
@@ -262,7 +262,6 @@ def play_level1():
                         copy_arr_for_game += el
                 arr_for_game.clear()
                 arr_for_game = copy_arr_for_game.copy()
-                print(arr_for_game)
             return render_template('level1_template.html', title='Играем...',
                                    filename='.' + current_user.filename_of_image,
                                    arr=arr_for_game)
@@ -293,12 +292,15 @@ def play_level1():
             arr_of_values = list()
             for i in range(1, 47):
                 if request.form[str(i)]:
-                    arr_of_values += request.form[str(i)]
+                    if request.form[str(i)] != '-':
+                        arr_of_values += request.form[str(i)]
+                    else:
+                        arr_of_values.append('/')
                 else:
                     arr_of_values.append('/')
             db_sess = db_session.create_session()
             user = db_sess.query(User).filter(User.id == current_user.id).first()
-            user.line_of_game = '--'.join(arr_of_values)
+            user.line_of_game = '-'.join(arr_of_values)
             db_sess.commit()
             return render_template('not_complete.html', title='Неверно',
                                    filename='.' + current_user.filename_of_image)

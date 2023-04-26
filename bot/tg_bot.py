@@ -23,14 +23,14 @@ async def start_command(update, context):
     markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
     user = update.effective_user
     await update.message.reply_html(
-        rf"Привет {user.mention_html()}! Я бот по нонограммам. Какая информация вам нужна?",
+        rf"Привет {user.mention_html()}! Я бот по судоку. Какая информация вам нужна?",
         reply_markup=markup
     )
 
 
 async def help_command(update, context):
     await update.message.reply_text("Справка: \n"
-                                    "Нонограмма - Японская головоломка (также японский кроссворд,"
+                                    "Судоку - Японская головоломка (также японский кроссворд,"
                                     " японское рисование, нонограмма) — головоломка, в которой, в"
                                     " отличие от обычных кроссвордов, закодированы не слова,"
                                     " а изображение.")
@@ -61,7 +61,7 @@ async def rules_command(update, context):
 
 
 async def history_of_nonogramms_command(update, context):
-    await update.message.reply_text(f"История Нонограмм: \n"
+    await update.message.reply_text(f"История судоку: \n"
                                     f"Нонограммы родились благодаря Нон Исиде \n"
                                     f"В 1987 году она приняла участие в конкурсе "
                                     f"рисунков окнами Window Art. Участникам необходимо было "

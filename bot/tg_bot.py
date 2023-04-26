@@ -62,7 +62,7 @@ async def rules_command(update, context):
 
 async def history_of_nonogramms_command(update, context):
     await update.message.reply_text(f"История судоку: \n"
-                                    f"Нонограммы родились благодаря Нон Исиде \n"
+                                    f"Судоку родились благодаря Нон Исиде \n"
                                     f"В 1987 году она приняла участие в конкурсе "
                                     f"рисунков окнами Window Art. Участникам необходимо было "
                                     f"создать рисунок на небоскребе с помощью окон, "
